@@ -3,10 +3,13 @@
 
 #include <string>
 
-class Ingredient {
+class Ingredient
+{
 public:
     Ingredient(const std::string &name, double quantity, const std::string &unit);
     std::string toString() const;
+    double getQuantity() const;
+    std::string getUnit() const;
 
 private:
     std::string name;
