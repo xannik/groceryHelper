@@ -26,3 +26,8 @@ std::string Recipe::getName() const
 {
     return name;
 }
+
+std::vector<Ingredient> Recipe::getIngredients()
+{
+    return ingredients;
+}

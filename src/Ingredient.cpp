@@ -17,3 +17,8 @@ std::string Ingredient::getUnit() const
 {
     return unit;
 }
+
+std::string Ingredient::getName() const
+{
+    return name;
+}

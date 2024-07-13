@@ -1,7 +1,8 @@
 #include "Book.h"
 #include <algorithm>
 #include <iostream>
-Book::Book(const std::string &name) : name(name) {}
+
+Book::Book(const std::string &name, const std::string &dbPath) : name(name), dbHelper(dbPath) {}
 
 void Book::addRecipe(std::unique_ptr<Recipe> recipe_p)
 {
@@ -51,5 +52,48 @@ const Recipe *Book::getRecipe(int id)
     {
         std::cout << "Recipe with ID: " << id << "not found" << std::endl;
         return nullptr;
+    }
+}
+void Book::saveToDatabase() const
+{
+    dbHelper.executeQuery("DELETE FROM Recipe;");
+    dbHelper.executeQuery("DELETE FROM Ingredient;");
+
+    for (const auto &recipe : recipe_book)
+    {
+        std::string query = "INSERT INTO Recipe (id, name) VALUES (" +
+                            std::to_string(recipe->getId()) + ", '" + recipe->getName() + "');";
+        dbHelper.executeQuery(query);
+
+        for (const auto &ingredient : recipe->getIngredients())
+        {
+            query = "INSERT INTO Ingredient (recipe_id, name, quantity, unit) VALUES (" +
+                    std::to_string(recipe->getId()) + ", '" + ingredient.getName() + "', " +
+                    std::to_string(ingredient.getQuantity()) + ", '" + ingredient.getUnit() + "');";
+            dbHelper.executeQuery(query);
+        }
+    }
+}
+
+void Book::loadFromDatabase()
+{
+    recipe_book.clear();
+
+    std::vector<std::pair<int, std::string>> recipes;
+    dbHelper.fetchRecipes(recipes);
+
+    for (const auto &recipe : recipes)
+    {
+        auto newRecipe = std::make_unique<Recipe>(recipe.second, recipe.first);
+
+        std::vector<std::tuple<std::string, double, std::string>> ingredients;
+        dbHelper.fetchIngredients(recipe.first, ingredients);
+
+        for (const auto &ingredient : ingredients)
+        {
+            newRecipe->addIngredient(Ingredient(std::get<0>(ingredient), std::get<1>(ingredient), std::get<2>(ingredient)));
+        }
+
+        recipe_book.push_back(std::move(newRecipe));
     }
 }

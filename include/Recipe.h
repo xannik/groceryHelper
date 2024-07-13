@@ -16,6 +16,7 @@ public:
 
     void addIngredient(const Ingredient &ingredient);
     void display() const;
+    std::vector<Ingredient> getIngredients();
     int getId() const;
     std::string getName() const;
 

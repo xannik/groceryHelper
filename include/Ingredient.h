@@ -10,6 +10,7 @@ public:
     std::string toString() const;
     double getQuantity() const;
     std::string getUnit() const;
+    std::string getName() const;
 
 private:
     std::string name;

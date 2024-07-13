@@ -18,3 +18,11 @@ Recpies are saved in a local database using sqllite
 ### libsqlite3-dev
 
 sudo apt-get install libsqlite3-dev
+
+## Mac
+
+### Prerequisites:
+
+### sqlite3
+
+brew install sqlite3
