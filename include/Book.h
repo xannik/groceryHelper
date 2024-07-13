@@ -16,6 +16,9 @@ public:
     const Recipe *getRecipe(std::string &name);
     const Recipe *getRecipe(const int id);
 
+    void storeBook();
+    void readStoredBook();
+
 private:
     std::string name;
     std::vector<std::unique_ptr<Recipe>> recipe_book;
