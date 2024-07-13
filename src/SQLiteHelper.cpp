@@ -1,5 +1,6 @@
 #include "SQLiteHelper.h"
 #include <iostream>
+#include <tuple>
 
 SQLiteHelper::SQLiteHelper(const std::string &dbPath)
 {
@@ -47,7 +48,7 @@ bool SQLiteHelper::executeQuery(const std::string &query) const
     return true;
 }
 
-bool SQLiteHelper::fetchRecipes(std::vector<std::pair<int, std::string>> &recipes)
+bool SQLiteHelper::fetchRecipes(std::vector<std::pair<int, std::string>> &recipes) const
 {
     sqlite3_stmt *stmt;
     std::string query = "SELECT id, name FROM Recipe;";
@@ -67,7 +68,7 @@ bool SQLiteHelper::fetchRecipes(std::vector<std::pair<int, std::string>> &recipe
     return true;
 }
 
-bool SQLiteHelper::fetchIngredients(int recipeId, std::vector<std::tuple<std::string, double, std::string>> &ingredients)
+bool SQLiteHelper::fetchIngredients(int recipeId, std::vector<std::tuple<std::string, double, std::string>> &ingredients) const
 {
     sqlite3_stmt *stmt;
     std::string query = "SELECT name, quantity, unit FROM Ingredient WHERE recipe_id = ?;";
