@@ -2,12 +2,13 @@
 
 This application is developed to ease your grocery list writing
 
-add your recepies
+add your recipes
 
-create a new shopping list add your recepies and generate a grocery list of ingredient quantity that you have
-to buy based on your recpies.
+create a new shopping list add your recipes and generate a grocery list of ingredient quantity that you have
+to buy based on your recipes.
 
-Recpies are saved in a local database using sqllite
+Recipes are saved in a local database using sqllite
+
 
 # Installation
 
@@ -17,7 +18,11 @@ Recpies are saved in a local database using sqllite
 
 ### libsqlite3-dev
 
-sudo apt-get install libsqlite3-dev
+```sudo apt-get install libsqlite3-dev```
+
+### libboost-all-dev
+
+```sudo apt-get install libboost-all-dev```
 
 ## Mac
 
